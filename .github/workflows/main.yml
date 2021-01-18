@@ -47,15 +47,15 @@ jobs:
 
     - name: Check installation files
       run: |
-        test -d $CONDA_PREFIX/share/jupyter/nbextensions/ipywebrtc
-        test -f $CONDA_PREFIX/share/jupyter/nbextensions/ipywebrtc/extension.js
-        test -f $CONDA_PREFIX/share/jupyter/nbextensions/ipywebrtc/index.js
-        test -d $CONDA_PREFIX/share/jupyter/labextensions/ipywebrtc
-        test -f $CONDA_PREFIX/share/jupyter/labextensions/ipywebrtc/package.json
+        test -d $CONDA_PREFIX/share/jupyter/nbextensions/jupyter-webrtc
+        test -f $CONDA_PREFIX/share/jupyter/nbextensions/jupyter-webrtc/extension.js
+        test -f $CONDA_PREFIX/share/jupyter/nbextensions/jupyter-webrtc/index.js
+        test -d $CONDA_PREFIX/share/jupyter/labextensions/jupyter-webrtc
+        test -f $CONDA_PREFIX/share/jupyter/labextensions/jupyter-webrtc/package.json
     - name: Check nbextension and labextension
       run: |
-        jupyter nbextension list 2>&1 | grep -ie "ipywebrtc/extension.*enabled" -
-        jupyter labextension list 2>&1 | grep -ie "ipywebrtc.*enabled.*ok" -
+        jupyter nbextension list 2>&1 | grep -ie "jupyter-webrtc/extension.*enabled" -
+        jupyter labextension list 2>&1 | grep -ie "jupyter-webrtc.*enabled.*ok" -
     - name: Run Python tests
       run: pytest tests
   
@@ -65,7 +65,7 @@ jobs:
     - name: Build docs (Only on MacOS for build speed)
       if: matrix.os == 'macos-latest'
       run: |
-        mamba install sphinx sphinx_rtd_theme pygments==2.6.1 jupyter-sphinx meshpy pyvista
+        mamba install sphinx sphinx_rtd_theme pygments==2.6.1 jupyter-sphinx
         cd docs/source/
         sphinx-build . _build/html
         cd ../..

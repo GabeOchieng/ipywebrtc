@@ -12,8 +12,8 @@ var rules = [
     // { test: /\.json$/, use: "json-loader" },
     {test: /\.js$/,  use: [{loader: "ts-loader", options: {transpileOnly: true} }]}
 ];
-var externals = ['@jupyter-widgets/base', '@jupyter-widgets/controls', 'jupyter-js-widgets']
-var pyname = 'ipywebrtc'
+var externals = ['@jupyter-widgets/base', '@jupyter-widgets/controls', 'jupyter-js-widgets'];
+var plugin_name = 'jupyter-webrtc';
 
 var resolve =  {
     extensions: ['.ts', '.js']
@@ -24,7 +24,7 @@ module.exports = [
         entry: './src/extension.js',
         output: {
             filename: 'extension.js',
-            path: path.resolve(__dirname, `../${pyname}/static`),
+            path: path.resolve(__dirname, `../share/jupyter/nbextensions/${plugin_name}`),
             libraryTarget: 'amd'
         },
         mode: 'development',
@@ -34,7 +34,7 @@ module.exports = [
         entry: './src/index.js',
         output: {
             filename: 'index.js',
-            path: path.resolve(__dirname, `../${pyname}/static`),
+            path: path.resolve(__dirname, `../share/jupyter/nbextensions/${plugin_name}`),
             libraryTarget: 'amd'
         },
         devtool: 'source-map',
