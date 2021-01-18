@@ -10,6 +10,7 @@
   },
   "jupyterlab": {
     "extension": "lib/labplugin",
+    "webpackConfig": "webpack.config.lab3.js",
     "outputDir": "../share/jupyter/labextensions/jupyter-webrtc",
     "sharedPackages": {
       "@jupyter-widgets/base": {
@@ -26,7 +27,7 @@
   ],
   "scripts": {
     "install-test": "npm install && karma start --single-run",
-    "build": "jlpm run build:js && jlpm run build:labextension && jlpm runbuild:nbextension",
+    "build": "jlpm run build:js && jlpm run build:labextension && jlpm run build:nbextension",
     "build:js": "tsc",
     "build:labextension": "jupyter labextension build .",
     "build:nbextension": "webpack --mode=production",
@@ -38,8 +39,8 @@
   },
   "devDependencies": {
     "@jupyter-widgets/controls": "^1.4.0 || ^2 || ^3",
+    "@jupyterlab/builder": "^3.0.1",
     "@jupyterlab/services": "^2.0.3",
-    "@jupyterlab/builder": "^3.0.0",
     "@types/chai": "^4.1.4",
     "@types/expect.js": "^0.3.29",
     "@types/mocha": "^5.2.4",
@@ -70,9 +71,12 @@
   },
   "dependencies": {
     "@jupyter-widgets/base": "^1.0 || ^2.0 || ^3.0",
+    "buffer": "^4.9.2",
     "html2canvas": "v1.0.0-alpha.12",
     "mqtt": "^2.11.0",
     "underscore": "^1.8.3",
+    "url": "^0.11.0",
+    "util": "^0.12.3",
     "webrtc-adapter": "^4.2.2"
   },
   "files": [

@@ -1,5 +1,5 @@
 var version = require('./package.json').version;
-
+var webpack = require('webpack');
 // // Custom webpack loaders are generally the same for all webpack bundles, hence
 // // stored in a separate local variable.
 // var loaders = [
@@ -16,8 +16,20 @@ var externals = ['@jupyter-widgets/base', '@jupyter-widgets/controls', 'jupyter-
 var plugin_name = 'jupyter-webrtc';
 
 var resolve =  {
-    extensions: ['.ts', '.js']
+    extensions: ['.ts', '.js'],
+    fallback: {
+        util: require.resolve("util/"),
+        url: require.resolve("url/"),
+        process: require.resolve("process/")
+    }
 };
+
+var plugins =  [
+    new webpack.ProvidePlugin({
+           process: 'process/browser',
+           Buffer: ['buffer', 'Buffer'],
+    }),
+];
 
 module.exports = [
     {
@@ -28,7 +40,8 @@ module.exports = [
             libraryTarget: 'amd'
         },
         mode: 'development',
-        resolve: resolve
+        resolve: resolve,
+        plugins: plugins
     },
     {
         entry: './src/index.js',
@@ -43,7 +56,8 @@ module.exports = [
         },
         externals: externals,
         mode: 'development',
-        resolve: resolve
+        resolve: resolve,
+        plugins: plugins
     },
     {// Embeddable jupyter-webrtc bundle
         entry: './src/embed.js',
@@ -59,6 +73,7 @@ module.exports = [
         },
         externals: externals,
         mode: 'development',
-        resolve: resolve
+        resolve: resolve,
+        plugins: plugins
     }
 ];
